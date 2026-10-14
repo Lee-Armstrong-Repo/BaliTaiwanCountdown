@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bali & Taiwan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,640&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="scene" aria-hidden="true">
+    <div class="sun"></div>
+    <svg class="palm palm-left" viewBox="0 0 220 420">
+      <path d="M118 420c-4-78-24-132-10-196 8-38 24-74 16-118" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/>
+      <path d="M124 118c-34-6-86 8-124 0 40 14 74 10 124 0z"/>
+      <path d="M124 118c-16-36-28-86-8-124 18 42 20 78 8 124z"/>
+      <path d="M124 118c28-28 78-48 124-30-40 16-78 24-124 30z"/>
+      <path d="M124 118c36 2 86 34 112 74-42-8-80-26-112-74z"/>
+      <path d="M124 118c-44 18-70 58-74 104 34-26 58-58 74-104z"/>
+      <path d="M124 118c10 24 6 58-8 92-6-30-6-60 8-92z"/>
+    </svg>
+    <svg class="palm palm-right" viewBox="0 0 220 420">
+      <path d="M118 420c-4-78-24-132-10-196 8-38 24-74 16-118" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/>
+      <path d="M124 118c-34-6-86 8-124 0 40 14 74 10 124 0z"/>
+      <path d="M124 118c-16-36-28-86-8-124 18 42 20 78 8 124z"/>
+      <path d="M124 118c28-28 78-48 124-30-40 16-78 24-124 30z"/>
+      <path d="M124 118c36 2 86 34 112 74-42-8-80-26-112-74z"/>
+      <path d="M124 118c-44 18-70 58-74 104 34-26 58-58 74-104z"/>
+      <path d="M124 118c10 24 6 58-8 92-6-30-6-60 8-92z"/>
+    </svg>
+  </div>
+  <main>
+    <p class="eyebrow">12 November 2026</p>
+    <h1>Bali & Taiwan</h1>
+    <p class="lede">Two islands, one tropical holiday.</p>
+
+    <section id="panel" aria-live="polite">
+      <div id="countdown" class="countdown">
+        <div class="stat">
+          <span id="days" class="value">--</span>
+          <span class="label">Days</span>
+        </div>
+        <div class="stat">
+          <span id="hours" class="value">--</span>
+          <span class="label">Hours</span>
+        </div>
+        <div class="stat">
+          <span id="minutes" class="value">--</span>
+          <span class="label">Minutes</span>
+        </div>
+        <div class="stat">
+          <span id="seconds" class="value">--</span>
+          <span class="label">Seconds</span>
+        </div>
+      </div>
+      <p id="arrived" class="arrived" hidden>The trip has started.</p>
+      <p id="clock-note" class="clock-note">Until the day count changes</p>
+      <p id="line" class="line"></p>
+      <button id="play" type="button">Play today's message</button>
+      <p id="status" class="status" role="status"></p>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
