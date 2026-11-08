@@ -89,6 +89,35 @@ audio.addEventListener("ended", () => {
   playButton.textContent = "Play today's message";
 });
 
+// Background slideshow: crossfades between two layers every few seconds.
+const PHOTO_COUNT = 16;
+const PHOTO_SECONDS = 6;
+const photoLayers = document.querySelectorAll(".photo");
+const photoUrl = (n) => `photos/${String(n + 1).padStart(2, "0")}.jpg`;
+let photoIndex = Math.floor(Math.random() * PHOTO_COUNT);
+let activeLayer = 0;
+
+function showPhoto(index) {
+  const url = photoUrl(index);
+  const img = new Image();
+  img.onload = () => {
+    const next = photoLayers[1 - activeLayer];
+    next.style.backgroundImage = `url("${url}")`;
+    next.classList.add("show");
+    photoLayers[activeLayer].classList.remove("show");
+    activeLayer = 1 - activeLayer;
+  };
+  img.src = url;
+}
+
+if (photoLayers.length === 2) {
+  showPhoto(photoIndex);
+  setInterval(() => {
+    photoIndex = (photoIndex + 1) % PHOTO_COUNT;
+    showPhoto(photoIndex);
+  }, PHOTO_SECONDS * 1000);
+}
+
 function tick() {
   render(new Date());
 }

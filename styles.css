@@ -22,6 +22,40 @@ body {
     linear-gradient(180deg, #ffe29a 0%, #ffb15a 24%, #ff8d62 40%, #ffd3ae 52%, #7ed9d2 66%, #149eab 100%);
 }
 
+.photos {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  background-position: center 30%;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.photo.show {
+  opacity: 1;
+}
+
+/* Sunset tint so the heading and countdown stay readable over the photos */
+.photos::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 238, 205, 0.62) 0%,
+    rgba(255, 196, 140, 0.32) 32%,
+    rgba(255, 170, 120, 0.12) 60%,
+    rgba(20, 158, 171, 0.35) 100%
+  );
+}
+
 .scene {
   position: fixed;
   inset: 0;
@@ -66,6 +100,7 @@ main {
 }
 
 .eyebrow {
+  text-shadow: 0 0 10px rgba(255, 244, 222, 1), 0 0 3px rgba(255, 244, 222, 1);
   margin: 0 0 12px;
   color: var(--hibiscus);
   font-size: 0.82rem;
@@ -82,10 +117,11 @@ h1 {
   font-weight: 520;
   letter-spacing: -0.03em;
   line-height: 0.95;
-  text-shadow: 0 2px 0 rgba(255, 248, 230, 0.35);
+  text-shadow: 0 0 18px rgba(255, 244, 222, 0.9), 0 2px 0 rgba(255, 248, 230, 0.5);
 }
 
 .lede {
+  text-shadow: 0 0 12px rgba(255, 244, 222, 0.95);
   max-width: 28rem;
   margin: 16px auto 0;
   color: var(--palm);
@@ -94,10 +130,12 @@ h1 {
 }
 
 #panel {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   margin-top: 36px;
   padding: 32px 22px 26px;
   background:
-    linear-gradient(var(--sand), var(--sand)) padding-box,
+    linear-gradient(rgba(255, 246, 232, 0.86), rgba(255, 246, 232, 0.86)) padding-box,
     linear-gradient(135deg, #f2c14e, #fff6e8 40%, #49c3b0) border-box;
   border: 3px solid transparent;
   border-radius: 28px;
