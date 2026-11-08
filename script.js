@@ -90,11 +90,11 @@ audio.addEventListener("ended", () => {
 });
 
 // Photo frame: tap to go to the next photo, with a "3 / 16" counter.
-const PHOTO_COUNT = 16;
+const PHOTO_COUNT = 22;
 const frameEl = document.querySelector(".frame");
 const slides = document.querySelectorAll(".slide");
 const countEl = document.querySelector("#photo-count");
-const photoUrl = (n) => `photos/${String(n + 1).padStart(2, "0")}.jpg?v=7`;
+const photoUrl = (n) => `photos/${String(n + 1).padStart(2, "0")}.jpg?v=8`;
 let photoIndex = 0;
 let activeSlide = 0;
 let hideTimer = null;
