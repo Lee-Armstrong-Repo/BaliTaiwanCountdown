@@ -94,7 +94,7 @@ const PHOTO_COUNT = 16;
 const PHOTO_SECONDS = 6;
 const frameEl = document.querySelector(".frame");
 const slides = document.querySelectorAll(".slide");
-const photoUrl = (n) => `photos/${String(n + 1).padStart(2, "0")}.jpg?v=4`;
+const photoUrl = (n) => `photos/${String(n + 1).padStart(2, "0")}.jpg?v=5`;
 let photoIndex = Math.floor(Math.random() * PHOTO_COUNT);
 let activeSlide = 0;
 let photoTimer = null;
@@ -103,10 +103,21 @@ function showPhoto(index) {
   const url = photoUrl(index);
   const img = new Image();
   img.onload = () => {
+    const prev = slides[activeSlide];
     const next = slides[1 - activeSlide];
+    const first = !prev.classList.contains("show");
+
+    // New photo goes on top and fades in; the old one stays fully visible
+    // underneath until the fade is done, so the frame is never blank.
     next.style.setProperty("--photo", `url("${url}")`);
+    next.style.zIndex = "2";
+    prev.style.zIndex = "1";
+    next.style.transition = first ? "none" : "";
+    next.classList.remove("show");
+    void next.offsetWidth; // restart the fade
     next.classList.add("show");
-    slides[activeSlide].classList.remove("show");
+    if (!first) setTimeout(() => prev.classList.remove("show"), 1400);
+
     activeSlide = 1 - activeSlide;
     new Image().src = photoUrl((index + 1) % PHOTO_COUNT); // preload the next one
   };
