@@ -1,5 +1,5 @@
-const TIMEZONE = "Australia/Sydney";
-const TARGET_DATE = "2026-11-12";
+// Take-off: 12 Nov 2026, 2:45pm Bali (UTC+8) = 5:45pm Sydney (AEDT, UTC+11).
+const TARGET = Date.parse("2026-11-12T14:45:00+08:00");
 
 const daysEl = document.querySelector("#days");
 const hoursEl = document.querySelector("#hours");
@@ -15,42 +15,12 @@ const statusEl = document.querySelector("#status");
 const audio = new Audio();
 let currentDays = null;
 
-function calendarDaysLeft(now) {
-  const today = new Intl.DateTimeFormat("en-CA", {
-    timeZone: TIMEZONE,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(now);
-
-  const start = Date.parse(`${today}T00:00:00Z`);
-  const end = Date.parse(`${TARGET_DATE}T00:00:00Z`);
-  return Math.round((end - start) / 86400000);
-}
-
-function sydneyClock(now) {
-  const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: TIMEZONE,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hourCycle: "h23",
-  }).formatToParts(now);
-
-  const value = (type) => Number(parts.find((part) => part.type === type).value);
+function timeLeft(now) {
+  const remaining = Math.ceil((TARGET - now.getTime()) / 1000);
+  if (remaining <= 0) return null;
   return {
-    hour: value("hour"),
-    minute: value("minute"),
-    second: value("second"),
-  };
-}
-
-function timeUntilSydneyMidnight(now) {
-  const { hour, minute, second } = sydneyClock(now);
-  const elapsed = hour * 3600 + minute * 60 + second;
-  const remaining = elapsed === 0 ? 86400 : 86400 - elapsed;
-  return {
-    hours: Math.floor(remaining / 3600),
+    days: Math.floor(remaining / 86400),
+    hours: Math.floor((remaining % 86400) / 3600),
     minutes: Math.floor((remaining % 3600) / 60),
     seconds: remaining % 60,
   };
@@ -66,9 +36,9 @@ function pad(value) {
 }
 
 function render(now) {
-  const days = calendarDaysLeft(now);
+  const left = timeLeft(now);
 
-  if (days < 0) {
+  if (!left) {
     countdownEl.hidden = true;
     arrivedEl.hidden = false;
     clockNoteEl.hidden = true;
@@ -79,17 +49,14 @@ function render(now) {
 
   countdownEl.hidden = false;
   arrivedEl.hidden = true;
-  clockNoteEl.hidden = days === 0;
+  clockNoteEl.hidden = false;
   playButton.hidden = false;
 
-  const untilMidnight = days === 0
-    ? { hours: 0, minutes: 0, seconds: 0 }
-    : timeUntilSydneyMidnight(now);
-
+  const { days } = left;
   daysEl.textContent = String(days);
-  hoursEl.textContent = pad(untilMidnight.hours);
-  minutesEl.textContent = pad(untilMidnight.minutes);
-  secondsEl.textContent = pad(untilMidnight.seconds);
+  hoursEl.textContent = pad(left.hours);
+  minutesEl.textContent = pad(left.minutes);
+  secondsEl.textContent = pad(left.seconds);
   lineEl.textContent = phraseFor(days);
 
   if (currentDays !== days) {
