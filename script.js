@@ -1,4 +1,4 @@
-// Take-off: 12 Nov 2026, 2:45pm Bali (UTC+8) = 5:45pm Sydney (AEDT, UTC+11).
+// Nicole lands: 12 Nov 2026, 2:45pm Bali (UTC+8) = 5:45pm Sydney (AEDT, UTC+11).
 const TARGET = Date.parse("2026-11-12T14:45:00+08:00");
 
 const daysEl = document.querySelector("#days");
