@@ -259,6 +259,15 @@ h1 {
   font-size: 0.95rem;
 }
 
+.photo-count {
+  color: var(--palm);
+  font-family: Outfit, "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+
 @media (max-width: 520px) {
   .sun {
     top: 4vh;
