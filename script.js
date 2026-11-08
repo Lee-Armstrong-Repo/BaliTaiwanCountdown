@@ -94,7 +94,7 @@ const PHOTO_COUNT = 16;
 const PHOTO_SECONDS = 6;
 const frameEl = document.querySelector(".frame");
 const slides = document.querySelectorAll(".slide");
-const photoUrl = (n) => `photos/${String(n + 1).padStart(2, "0")}.jpg`;
+const photoUrl = (n) => `photos/${String(n + 1).padStart(2, "0")}.jpg?v=4`;
 let photoIndex = Math.floor(Math.random() * PHOTO_COUNT);
 let activeSlide = 0;
 let photoTimer = null;
