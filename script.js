@@ -94,7 +94,7 @@ const PHOTO_COUNT = 22;
 const frameEl = document.querySelector(".frame");
 const slides = document.querySelectorAll(".slide");
 const countEl = document.querySelector("#photo-count");
-const photoUrl = (n) => `photos/${String(n + 1).padStart(2, "0")}.jpg?v=8`;
+const photoUrl = (n) => `photos/${String(n + 1).padStart(2, "0")}.jpg?v=9`;
 let photoIndex = 0;
 let activeSlide = 0;
 let hideTimer = null;
