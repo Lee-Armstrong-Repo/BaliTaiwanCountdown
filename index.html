@@ -10,10 +10,6 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="photos" aria-hidden="true">
-    <div class="photo"></div>
-    <div class="photo"></div>
-  </div>
   <div class="scene" aria-hidden="true">
     <div class="sun"></div>
     <svg class="palm palm-left" viewBox="0 0 220 420">
@@ -65,6 +61,14 @@
       <button id="play" type="button">Play today's message</button>
       <p id="status" class="status" role="status"></p>
     </section>
+
+    <figure class="polaroid">
+      <button class="frame" type="button" aria-label="Next photo">
+        <span class="slide"></span>
+        <span class="slide"></span>
+      </button>
+      <figcaption>Tap for the next one</figcaption>
+    </figure>
   </main>
   <script src="script.js"></script>
 </body>

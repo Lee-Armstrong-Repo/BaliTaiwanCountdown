@@ -89,33 +89,47 @@ audio.addEventListener("ended", () => {
   playButton.textContent = "Play today's message";
 });
 
-// Background slideshow: crossfades between two layers every few seconds.
+// Photo frame slideshow: crossfades between two layers; tap to skip ahead.
 const PHOTO_COUNT = 16;
 const PHOTO_SECONDS = 6;
-const photoLayers = document.querySelectorAll(".photo");
+const frameEl = document.querySelector(".frame");
+const slides = document.querySelectorAll(".slide");
 const photoUrl = (n) => `photos/${String(n + 1).padStart(2, "0")}.jpg`;
 let photoIndex = Math.floor(Math.random() * PHOTO_COUNT);
-let activeLayer = 0;
+let activeSlide = 0;
+let photoTimer = null;
 
 function showPhoto(index) {
   const url = photoUrl(index);
   const img = new Image();
   img.onload = () => {
-    const next = photoLayers[1 - activeLayer];
-    next.style.backgroundImage = `url("${url}")`;
+    const next = slides[1 - activeSlide];
+    next.style.setProperty("--photo", `url("${url}")`);
     next.classList.add("show");
-    photoLayers[activeLayer].classList.remove("show");
-    activeLayer = 1 - activeLayer;
+    slides[activeSlide].classList.remove("show");
+    activeSlide = 1 - activeSlide;
+    new Image().src = photoUrl((index + 1) % PHOTO_COUNT); // preload the next one
   };
   img.src = url;
 }
 
-if (photoLayers.length === 2) {
+function nextPhoto() {
+  photoIndex = (photoIndex + 1) % PHOTO_COUNT;
   showPhoto(photoIndex);
-  setInterval(() => {
-    photoIndex = (photoIndex + 1) % PHOTO_COUNT;
-    showPhoto(photoIndex);
-  }, PHOTO_SECONDS * 1000);
+}
+
+function startPhotoTimer() {
+  clearInterval(photoTimer);
+  photoTimer = setInterval(nextPhoto, PHOTO_SECONDS * 1000);
+}
+
+if (frameEl && slides.length === 2) {
+  showPhoto(photoIndex);
+  startPhotoTimer();
+  frameEl.addEventListener("click", () => {
+    nextPhoto();
+    startPhotoTimer();
+  });
 }
 
 function tick() {
